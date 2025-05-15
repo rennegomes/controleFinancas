@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #F9FAFB;
+  
+  /* Texto */
+  --cor-texto-destaque: #111827;
+  --cor-texto-padrao: #374151;
+  --cor-texto-sem-destaque: #9CA3AF;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Cores principais suaves */
+  --cor-destaque: #D1D5DB;
+  --cor-off-destaque: #E5E7EB;
+
+  /* Feedback sutil */
+  --cor-positiva-verde: #A7F3D0;
+  --cor-positiva-verde-escuro: #6EE7B7;
+  --cor-negativa-vermelho: #FECACA;
+  --cor-negativa-vermelho-escuro: #F87171;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121214;
+
+    /* Cores de texto */
+    --cor-texto-destaque: #E1E1E6;
+    --cor-texto-padrao: #C4C4CC;
+    --cor-texto-sem-destaque: #7C7C8A;
+
+    /* Cores principais */
+    --cor-destaque: #323238;
+    --cor-off-destaque: #202024;
+
+    /* Cores de feedback */
+    --cor-positiva-verde: #00B37E;
+    --cor-positiva-verde-escuro: #00875F;
+    --cor-negativa-vermelho: #F75A68;
+    --cor-negativa-vermelho-escuro: #AA2834;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--cor-texto-destaque);
   font-family: Arial, Helvetica, sans-serif;
 }
