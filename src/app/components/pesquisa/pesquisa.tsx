@@ -11,7 +11,7 @@ export default function Pesquisa(){
                     placeholder="Buscar transações"
                     className="flex-1 bg-[var(--background)] p-2 rounded-md focus:outline-none"
                 />
-                <div className="flex gap-3 justify-center items-center py-3 px-4 text-[var(--cor-positiva-verde)] bg-transparent border border-[var(--cor-positiva-verde)] rounded-md cursor-pointer">
+                <div className="flex gap-3 justify-center items-center py-3 px-4 text-[var(--cor-positiva-verde)] bg-transparent border border-[var(--cor-positiva-verde)] rounded-md cursor-pointer transition-all duration-200 hover:bg-[var(--cor-positiva-verde-escuro)] hover:text-[var(--cor-texto-destaque)]">
                     <MagnifyingGlassIcon size={20} />
                     <input 
                         type="button" 
