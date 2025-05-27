@@ -4,7 +4,7 @@ interface InformacoesTabelaProps {
 
 export default function InfromacoesTabela(props: InformacoesTabelaProps){
     return(
-        <>
+        <tbody>
             <tr className="max-sm:hidden">
                 <td className="bg-[var(--cor-destaque)] w-1/2 first:rounded-l-md last:rounded-r-md py-5 px-8">Desenvolvimento de site</td>
                 <td className={props.corEntradaESaida === "saida" ? "text-[var(--cor-negativa-vermelho)] bg-[var(--cor-destaque)] w-1/3 first:rounded-l-md last:rounded-r-md py-5 px-8" : "text-[var(--cor-positiva-verde)] bg-[var(--cor-destaque)] w-1/3 first:rounded-l-md last:rounded-r-md py-5 px-8"}>R$ 12.000,00</td>
@@ -24,6 +24,6 @@ export default function InfromacoesTabela(props: InformacoesTabelaProps){
                     </div>
                 </td>
             </tr>
-        </>
+        </tbody>
     )
 }
