@@ -1,5 +1,6 @@
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, X } from "@phosphor-icons/react/dist/ssr";
 import * as Dialog from "@radix-ui/react-dialog";
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
 export default function ConteudoDialog(){
     return(
@@ -42,16 +43,16 @@ export default function ConteudoDialog(){
                 className="bg-[var(--background)] w-full rounded-md p-4 focus:outline-none"
               />
 
-              <div className="grid grid-cols-2 gap-5">
-                <button className="flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-positiva-verde)] focus:text-[var(--cor-texto-padrao)] focus:bg-[var(--cor-positiva-verde-escuro)]">
+              <RadioGroup.Root className="group grid grid-cols-2 gap-5">
+                <RadioGroup.Item value="Entrada" className="data-[state=checked]:bg-[var(--cor-positiva-verde-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-positiva-verde)]">
                   <ArrowCircleUpIcon size={24} />
                   <span className="text-[var(--cor-texto-padrao)]">Entrada</span>
-                </button>
-                <button className="flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-negativa-vermelho)] focus:text-[var(--cor-texto-padrao)] focus:bg-[var(--cor-negativa-vermelho-escuro)]">
+                </RadioGroup.Item>
+                <RadioGroup.Item value="Saida" className="data-[state=checked]:bg-[var(--cor-negativa-vermelho-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-negativa-vermelho)]">
                   <ArrowCircleDownIcon size={24} />
                   <span className="text-[var(--cor-texto-padrao)]">Saída</span> 
-                </button>
-              </div>
+                </RadioGroup.Item>
+              </RadioGroup.Root>
 
               <input 
                 type="submit" 
