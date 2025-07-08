@@ -1,29 +1,10 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InfromacoesTabela from "./informacaosTabela";
-
-interface Transacoes{
-    id: number
-    descricao: string
-    tipo: 'entrada' | 'saida'
-    categoria: string
-    preco: number
-    dataCriacao: string
-}
+import { ContextTransacoes } from "@/contexts/contextTransacoes";
 
 export default function Tabela(){
-    const [transacoes, setTransacoes] = useState<Transacoes[]>([]);
-
-    async function carregaTransacao(){
-        const response = await fetch('http://localhost:3333/trasacao')
-        const data = await response.json();
-
-        setTransacoes(data);
-    }
-
-    useEffect(() => {
-        carregaTransacao();
-    }, [])
+    const { transacoes } = useContext(ContextTransacoes)
 
 
     return(
