@@ -1,31 +1,13 @@
 'use client'
+import useSumario from "@/app/hooks/useSumario";
 import { ContextTransacoes } from "@/contexts/contextTransacoes";
 import { precoFormato } from "@/utils/formatacao";
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from "@phosphor-icons/react/dist/ssr";
 import { useContext } from "react";
 
 export default function Resumo() {
-    const { transacoes } = useContext(ContextTransacoes)
 
-    const soma = transacoes.reduce(
-        (acc, transacao) =>{
-
-            if(transacao.tipo === 'entrada'){
-                acc.entrada += transacao.preco
-                acc.total += transacao.preco
-            }else{
-                acc.saida += transacao.preco
-                acc.total -= transacao.preco
-            }
-
-            return acc;
-        },
-        {
-            saida: 0,
-            entrada: 0,
-            total: 0
-        }
-    )
+    const soma = useSumario();
 
   return (
    <div className="flex justify-between overflow-x-auto whitespace-nowrap md:grid grid-cols-3 gap-8 mt-[-5rem] w-full max-w-6xl mx-auto px-6 pb-2">
