@@ -1,5 +1,6 @@
 'use client'
 import { ContextTransacoes } from "@/contexts/contextTransacoes";
+import { precoFormato } from "@/utils/formatacao";
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from "@phosphor-icons/react/dist/ssr";
 import { useContext } from "react";
 
@@ -34,7 +35,7 @@ export default function Resumo() {
             <span>Entradas</span>
             <ArrowCircleUp size={32} className="text-[var(--cor-positiva-verde)]" />
         </div>
-        <strong className="text-[var(--cor-texto-destaque)] text-2xl">R$ {soma.entrada}</strong>
+        <strong className="text-[var(--cor-texto-destaque)] text-2xl">{precoFormato.format(soma.entrada)}</strong>
         <span className="text-[var(--cor-texto-sem-destaque)] text-sm">Última entrada em 13 de abril</span>
     </div>
 
@@ -43,7 +44,7 @@ export default function Resumo() {
             <span>Saídas</span>
             <ArrowCircleDown size={32} className="text-[var(--cor-negativa-vermelho)]" />
         </div>
-        <strong className="text-[var(--cor-texto-destaque)] text-2xl">R$ {soma.saida}</strong>
+        <strong className="text-[var(--cor-texto-destaque)] text-2xl">{precoFormato.format(soma.saida)}</strong>
         <span className="text-[var(--cor-texto-sem-destaque)] text-sm">Última entrada em 13 de abril</span>
     </div>
 
@@ -52,7 +53,7 @@ export default function Resumo() {
             <span>Total</span>
             <CurrencyDollar size={32} className="text-[var(--cor-texto-destaque)]" />
         </div>
-        <strong className="text-[var(--cor-texto-destaque)] text-2xl">R$ {soma.total}</strong>
+        <strong className="text-[var(--cor-texto-destaque)] text-2xl">{precoFormato.format(soma.total)}</strong>
         <span className="text-sm">Última entrada em 13 de abril</span>
     </div>
 
