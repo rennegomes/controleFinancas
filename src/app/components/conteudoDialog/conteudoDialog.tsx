@@ -1,8 +1,37 @@
+'use client'
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, X } from "@phosphor-icons/react/dist/ssr";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from "@radix-ui/react-radio-group";
+import { useForm } from "react-hook-form";
+import * as z from 'zod';
+
+const novaEsquemaTrasacaoFrom = z.object({
+  descricao: z.string(),
+  preco: z.number(),
+  categoria: z.string(),
+  // tipo: z.enum(['entrada', 'saida']),
+})
+
+type NovaEsquemaTrasacaoFromInputs = z.infer<typeof novaEsquemaTrasacaoFrom>;
 
 export default function ConteudoDialog(){
+
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { isSubmitting }
+  } = useForm<NovaEsquemaTrasacaoFromInputs>({
+    resolver: zodResolver(novaEsquemaTrasacaoFrom),
+  })
+
+  async function acaoCriaNovaTransacao(data: NovaEsquemaTrasacaoFromInputs){
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    console.log(data);
+  }
+
     return(
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 w-screen h-screen bg-[var(--background)]/50" />
@@ -17,29 +46,26 @@ export default function ConteudoDialog(){
                 </button>
               </Dialog.Close>
             </div>
-            <form className="flex flex-col gap-1 mt-4">
+            <form className="flex flex-col gap-1 mt-4" onSubmit={handleSubmit(acaoCriaNovaTransacao)}>
               <input 
                 type="text" 
-                name="" 
-                id="" 
                 placeholder="Descrição" 
-                required 
+                required
+                {...register('descricao')} 
                 className="bg-[var(--background)] w-full rounded-md p-4 focus:outline-none"
               />
               <input 
                 type="number"
-                name="" 
-                id="" 
                 placeholder="Preço" 
-                required 
+                required
+                {...register('preco', { valueAsNumber: true })} 
                 className="bg-[var(--background)] w-full rounded-md p-4 focus:outline-none"
               />
               <input 
                 type="text" 
-                name="" 
-                id="" 
                 placeholder="Categoria" 
-                required 
+                required
+                {...register('categoria')} 
                 className="bg-[var(--background)] w-full rounded-md p-4 focus:outline-none"
               />
 
@@ -54,11 +80,11 @@ export default function ConteudoDialog(){
                 </RadioGroup.Item>
               </RadioGroup.Root>
 
-              <input 
+              <button
                 type="submit" 
-                value="Cadastrar" 
-                className="bg-[var(--cor-positiva-verde-escuro)] p-2 my-5 rounded-md font-bold cursor-pointer" 
-              />
+                disabled={isSubmitting}
+                className="bg-[var(--cor-positiva-verde-escuro)] p-2 my-5 rounded-md font-bold cursor-pointer disabled:opacity-65 disabled:cursor-not-allowed" 
+              >Cadastrar</button>
             </form>
           </Dialog.Content>
         </Dialog.Portal>
