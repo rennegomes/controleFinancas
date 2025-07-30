@@ -4,14 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, X } from "@phosphor-icons/react/dist/ssr";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as z from 'zod';
 
 const novaEsquemaTrasacaoFrom = z.object({
   descricao: z.string(),
   preco: z.number(),
   categoria: z.string(),
-  // tipo: z.enum(['entrada', 'saida']),
+  tipo: z.enum(['entrada', 'saida'])
 })
 
 type NovaEsquemaTrasacaoFromInputs = z.infer<typeof novaEsquemaTrasacaoFrom>;
@@ -19,11 +19,15 @@ type NovaEsquemaTrasacaoFromInputs = z.infer<typeof novaEsquemaTrasacaoFrom>;
 export default function ConteudoDialog(){
 
   const { 
+    control,
     register, 
     handleSubmit, 
     formState: { isSubmitting }
   } = useForm<NovaEsquemaTrasacaoFromInputs>({
     resolver: zodResolver(novaEsquemaTrasacaoFrom),
+    defaultValues: {
+      tipo: 'entrada'
+    }
   })
 
   async function acaoCriaNovaTransacao(data: NovaEsquemaTrasacaoFromInputs){
@@ -69,16 +73,25 @@ export default function ConteudoDialog(){
                 className="bg-[var(--background)] w-full rounded-md p-4 focus:outline-none"
               />
 
-              <RadioGroup.Root className="group grid grid-cols-2 gap-5">
-                <RadioGroup.Item value="Entrada" className="data-[state=checked]:bg-[var(--cor-positiva-verde-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-positiva-verde)]">
-                  <ArrowCircleUpIcon size={24} />
-                  <span className="text-[var(--cor-texto-padrao)]">Entrada</span>
-                </RadioGroup.Item>
-                <RadioGroup.Item value="Saida" className="data-[state=checked]:bg-[var(--cor-negativa-vermelho-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-negativa-vermelho)]">
-                  <ArrowCircleDownIcon size={24} />
-                  <span className="text-[var(--cor-texto-padrao)]">Saída</span> 
-                </RadioGroup.Item>
-              </RadioGroup.Root>
+              <Controller 
+                control={control}
+                name="tipo"
+                render={( { field } ) => {
+                  return(
+                    <RadioGroup.Root className="group grid grid-cols-2 gap-5" onValueChange={field.onChange} value={field.value}>
+                      <RadioGroup.Item value="entrada" className="data-[state=checked]:bg-[var(--cor-positiva-verde-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-positiva-verde)]">
+                        <ArrowCircleUpIcon size={24} />
+                        <span className="text-[var(--cor-texto-padrao)]">Entrada</span>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="saida" className="data-[state=checked]:bg-[var(--cor-negativa-vermelho-escuro)] data-[state=checked]:text-[var(--cor-texto-padrao)] flex gap-2 justify-center bg-[var(--cor-off-destaque)] rounded-md p-4 mt-5 cursor-pointer text-[var(--cor-negativa-vermelho)]">
+                        <ArrowCircleDownIcon size={24} />
+                        <span className="text-[var(--cor-texto-padrao)]">Saída</span> 
+                      </RadioGroup.Item>
+                    </RadioGroup.Root>
+                  )
+                }}
+              />
+
 
               <button
                 type="submit" 
