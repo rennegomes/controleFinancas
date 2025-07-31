@@ -12,6 +12,7 @@ interface Transacoes {
 
 interface ContextTransacoesProps {
     transacoes: Transacoes[];
+    fetchTransacao: (query?: string) => Promise<void>;
 }
 
 interface TransacoesProviderProps {
@@ -24,19 +25,28 @@ export function TransacoesProvider({ children }: TransacoesProviderProps ){
 
     const [transacoes, setTransacoes] = useState<Transacoes[]>([]);
     
-        async function carregaTransacao(){
-            const response = await fetch('http://localhost:3333/trasacao')
+        async function fetchTransacao(query?: string){
+            const url = new URL('http://localhost:3333/trasacao');
+
+            if (query) {
+                url.searchParams.append('q', query);
+            };
+
+            const response = await fetch(url)
             const data = await response.json();
     
             setTransacoes(data);
         }
     
         useEffect(() => {
-            carregaTransacao();
+            fetchTransacao();
         }, [])
 
     return(
-        <ContextTransacoes.Provider value={{ transacoes }}>
+        <ContextTransacoes.Provider value={{ 
+            transacoes,
+            fetchTransacao
+        }}>
             {children}
         </ContextTransacoes.Provider>
     )

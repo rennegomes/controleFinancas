@@ -1,7 +1,9 @@
 'use client';
 
+import { ContextTransacoes } from "@/contexts/contextTransacoes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import * as z from 'zod';
 
@@ -13,6 +15,8 @@ type PesquisaFormularioInputs = z.infer<typeof esquemaPesquisaFormulario>;
 
 export default function Pesquisa(){
 
+    const { fetchTransacao } = useContext(ContextTransacoes);
+
     const { 
         register, 
         handleSubmit, 
@@ -22,9 +26,7 @@ export default function Pesquisa(){
     })
 
     async function acaoPequisaTransacao(data: PesquisaFormularioInputs){
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        console.log(data);
+        await fetchTransacao(data.query);
     }
 
     return(
