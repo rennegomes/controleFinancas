@@ -1,4 +1,5 @@
 "use client";
+import { api } from "@/lib/axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface Transacoes {
@@ -26,16 +27,14 @@ export function TransacoesProvider({ children }: TransacoesProviderProps ){
     const [transacoes, setTransacoes] = useState<Transacoes[]>([]);
     
         async function fetchTransacao(query?: string){
-            const url = new URL('http://localhost:3333/trasacao');
-
-            if (query) {
-                url.searchParams.append('q', query);
-            };
-
-            const response = await fetch(url)
-            const data = await response.json();
+        
+            const response = await api.get('trasacao', {
+                params: {
+                    'q': query,
+                }
+            })
     
-            setTransacoes(data);
+            setTransacoes(response.data);
         }
     
         useEffect(() => {
