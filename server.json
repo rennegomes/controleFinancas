@@ -1,28 +1,60 @@
 {
-    "trasacao": [
-        {
-            "id": 1,
-            "descricao": "Desenvolvimento de site",
-            "tipo": "entrada",
-            "categoria": "Venda",
-            "preco": 12000,
-            "dataCriacao": "2022-07-29T19:36:44.505Z"
-        },
-        {
-            "id": 2,
-            "descricao": "Hamburguer",
-            "tipo": "saida",
-            "categoria": "Alimentação",
-            "preco": 50,
-            "dataCriacao": "2022-07-29T20:15:44.505Z"
-        },
-        {
-            "id": 3,
-            "descricao": "Passe de batalha",
-            "tipo": "saida",
-            "categoria": "Jogos",
-            "preco": 100,
-            "dataCriacao": "2022-07-01T20:15:44.505Z"
-        }
-    ]
+  "transacao": [
+    {
+      "id": 1,
+      "descricao": "Desenvolvimento de site",
+      "tipo": "entrada",
+      "categoria": "Venda",
+      "preco": 12000,
+      "dataCriacao": "2022-07-29T19:36:44.505Z"
+    },
+    {
+      "id": 2,
+      "descricao": "Hamburguer",
+      "tipo": "saida",
+      "categoria": "Alimentação",
+      "preco": 50,
+      "dataCriacao": "2022-07-29T20:15:44.505Z"
+    },
+    {
+      "id": 3,
+      "descricao": "Passe de batalha",
+      "tipo": "saida",
+      "categoria": "Jogos",
+      "preco": 100,
+      "dataCriacao": "2022-07-01T20:15:44.505Z"
+    },
+    {
+      "descricao": "Aluguel do local",
+      "preco": 50000,
+      "categoria": "Casamento",
+      "tipo": "saida",
+      "dataCriacao": "2025-08-05T19:17:23.656Z",
+      "id": 4
+    },
+    {
+      "descricao": "Venda da casa",
+      "preco": 150000,
+      "categoria": "Venda",
+      "tipo": "entrada",
+      "dataCriacao": "2025-08-05T19:18:40.346Z",
+      "id": 5
+    },
+    {
+      "descricao": "Bolinho de queijo",
+      "preco": 15,
+      "categoria": "Alimentação",
+      "tipo": "saida",
+      "dataCriacao": "2025-08-05T19:40:05.702Z",
+      "id": 6
+    },
+    {
+      "descricao": "Venda das peças",
+      "preco": 700,
+      "categoria": "Venda",
+      "tipo": "entrada",
+      "dataCriacao": "2025-08-05T19:41:42.155Z",
+      "id": 7
+    }
+  ]
 }

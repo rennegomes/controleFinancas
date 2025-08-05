@@ -1,39 +1,50 @@
 'use client'
 
+import { ContextTransacoes } from "@/contexts/contextTransacoes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, X } from "@phosphor-icons/react/dist/ssr";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as RadioGroup from "@radix-ui/react-radio-group";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from 'zod';
 
-const novaEsquemaTrasacaoFrom = z.object({
+const novaEsquemaTransacaoFrom = z.object({
   descricao: z.string(),
   preco: z.number(),
   categoria: z.string(),
   tipo: z.enum(['entrada', 'saida'])
 })
 
-type NovaEsquemaTrasacaoFromInputs = z.infer<typeof novaEsquemaTrasacaoFrom>;
+type NovaEsquemaTransacaoFromInputs = z.infer<typeof novaEsquemaTransacaoFrom>;
 
 export default function ConteudoDialog(){
+  const { criaTransacao } = useContext(ContextTransacoes)
 
   const { 
     control,
     register, 
     handleSubmit, 
-    formState: { isSubmitting }
-  } = useForm<NovaEsquemaTrasacaoFromInputs>({
-    resolver: zodResolver(novaEsquemaTrasacaoFrom),
+    formState: { isSubmitting },
+    reset,
+  } = useForm<NovaEsquemaTransacaoFromInputs>({
+    resolver: zodResolver(novaEsquemaTransacaoFrom),
     defaultValues: {
       tipo: 'entrada'
     }
   })
 
-  async function acaoCriaNovaTransacao(data: NovaEsquemaTrasacaoFromInputs){
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  async function acaoCriaNovaTransacao(data: NovaEsquemaTransacaoFromInputs){
+    const { descricao, preco, categoria, tipo } = data;
 
-    console.log(data);
+    await criaTransacao({
+      descricao,
+      preco,
+      categoria,
+      tipo
+    })
+
+    reset();
   }
 
     return(
