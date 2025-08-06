@@ -1,78 +1,77 @@
-"use client";
-import { api } from "@/lib/axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
-
+'use client'
+import { api } from '@/lib/axios'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 interface Transacoes {
-    id: number
-    descricao: string
-    tipo: 'entrada' | 'saida'
-    categoria: string
-    preco: number
-    dataCriacao: string
+  id: number
+  descricao: string
+  tipo: 'entrada' | 'saida'
+  categoria: string
+  preco: number
+  dataCriacao: string
 }
 
-interface CriaTransacaoInput{
-    descricao: string,
-    preco: number,
-    categoria: string,
-    tipo: 'entrada' | 'saida',
+interface CriaTransacaoInput {
+  descricao: string
+  preco: number
+  categoria: string
+  tipo: 'entrada' | 'saida'
 }
 
 interface ContextTransacoesProps {
-    transacoes: Transacoes[];
-    fetchTransacao: (query?: string) => Promise<void>;
-    criaTransacao: (data: CriaTransacaoInput) => Promise<void>;
+  transacoes: Transacoes[]
+  fetchTransacao: (query?: string) => Promise<void>
+  criaTransacao: (data: CriaTransacaoInput) => Promise<void>
 }
 
 interface TransacoesProviderProps {
-    children: ReactNode
+  children: ReactNode
 }
 
 export const ContextTransacoes = createContext({} as ContextTransacoesProps)
 
-export function TransacoesProvider({ children }: TransacoesProviderProps ){
+export function TransacoesProvider({ children }: TransacoesProviderProps) {
+  const [transacoes, setTransacoes] = useState<Transacoes[]>([])
 
-    const [transacoes, setTransacoes] = useState<Transacoes[]>([]);
-    
-        async function fetchTransacao(query?: string){
-        
-            const response = await api.get('transacao', {
-                params: {
-                    _sort: 'dataCriacao',
-                    _order: 'desc',
-                    'q': query,
-                }
-            })
-    
-            setTransacoes(response.data);
-        }
-    
-        async function criaTransacao(data: CriaTransacaoInput) {
-            const { descricao, preco, categoria, tipo } = data;
+  async function fetchTransacao(query?: string) {
+    const response = await api.get('transacao', {
+      params: {
+        _sort: 'dataCriacao',
+        _order: 'desc',
+        q: query,
+      },
+    })
 
-            const response = await api.post('transacao', {
-            descricao,
-            preco,
-            categoria,
-            tipo,
-            dataCriacao: new Date(),
-        })
+    setTransacoes(response.data)
+  }
 
-            setTransacoes(state => [response.data, ...state]);
-        }
+  async function criaTransacao(data: CriaTransacaoInput) {
+    const { descricao, preco, categoria, tipo } = data
 
-        useEffect(() => {
-            fetchTransacao();
-        }, [])
+    const response = await api.post('transacao', {
+      descricao,
+      preco,
+      categoria,
+      tipo,
+      dataCriacao: new Date(),
+    })
 
-    return(
-        <ContextTransacoes.Provider value={{ 
-            transacoes,
-            fetchTransacao,
-            criaTransacao
-        }}>
-            {children}
-        </ContextTransacoes.Provider>
-    )
+    setTransacoes((state) => [response.data, ...state])
+  }
+
+  useEffect(() => {
+    fetchTransacao()
+  }, [])
+
+  return (
+    <ContextTransacoes.Provider
+      value={{
+        transacoes,
+        fetchTransacao,
+        criaTransacao,
+      }}
+    >
+      {children}
+    </ContextTransacoes.Provider>
+  )
 }
